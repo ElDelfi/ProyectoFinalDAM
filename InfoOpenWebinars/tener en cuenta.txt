@@ -67,3 +67,32 @@ para destruit Destroy(object,(float delay))
 HACER UN POOL EN VEZ DE CREAR Y DESTRUIR
 
 SI HACE FALTA VER LA SECCION DE CORUTINAS
+
+Random.insideUnitCircle
+MAthf y Unity.System Random. clase static o si no crear objeto Random como en clase
+
+Distancia o direccion entre objetos es la resta de sus vectores2
+
+SqrtMagnitude Recordar la magnitud es la raiz cuadrada del cuadrado de cada una de las componentes (La magnitud de un vector es la distancia entre el punto inicial P y el punto final Q )
+
+Producto escalar por ejemplo lo podemos usar para determinar la visibilidad de un objetivo (usar para los enemigos)
+
+producto vectorial (?)
+
+Veector normal(rebotes,determinar direcciones)
+
+Mathf.Atan2(y,x) para evitar divisiones entre 0
+
+
+Interpolacion (lerp ), obtener valores entre otros conocidos, se usa para barras de progres,transparebcia y desplazarse de forma suave entrwe puntos
+Para mover objetos entre dos transform o puntos por ejemplo o efectos de camara
+
+
+
+
+
+
+
+
+
+
