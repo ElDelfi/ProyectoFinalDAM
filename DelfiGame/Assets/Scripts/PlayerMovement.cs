@@ -4,35 +4,39 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public bool moving = false;
     public float speed = 5.0f;
+    private Vector3 movementDirection = Vector3.zero;
+    public bool moving = false;
+
     void Update()
     {
+        // reinicio del vector de dirección de movimiento para q no se siga moviendo
+        movementDirection = Vector3.zero;
+
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
-            moving = true;
+            movementDirection += Vector3.up;
         }
-        else if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
-            moving = true;
+            movementDirection += Vector3.left;
         }
-        else if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
-            moving = true;
+            movementDirection += Vector3.down;
         }
-        else if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
-            moving = true;
+            movementDirection += Vector3.right;
         }
-        else
+
+        // si no esta parado es true
+        moving = movementDirection != Vector3.zero;
+
+        // si se mueve, aplicamos el movimiento
+        if (moving)
         {
-            moving = false;
+            transform.Translate(movementDirection.normalized * speed * Time.deltaTime, Space.World);
         }
     }
 }
-
-//FALTA HACERLO MULTIDIRECCIONAL
