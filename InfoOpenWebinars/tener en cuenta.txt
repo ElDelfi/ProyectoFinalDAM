@@ -1,0 +1,69 @@
+project settings>time>time scale es modificable en tiempo de ejecucion
+
+en project setting tbn cambios de fisicas
+
+
+Oncollision
+
+layers en project settings fisicas intersecciones 
+
+hacer distintas scenas con juego o menus
+ 
+arrastrar elemento a la carpeta assets para hacer el prefab (se pueden anidar arrastrando dentro de otros) (arrastrandp con cambios podemos crear variaciones del prefab)
+
+build settings player para editar el ejecutable
+
+[HideInInspector] etqiuetas encima de variables 
+[ExecuteInEditor]
+
+
+
+al poner objeto en unity dentro del script
+[System.Serializable]
+public struct Polla{
+
+public int longitud=2;
+}
+
+
+transform.position=new Vector3(xf,yf,zf); (Vector3.up) hay statics con direcciones
+
+
+ver quaterniones si fuera necesario pero al ser 2d ni crei
+
+distancia=velocidad* deltatime (independiente de fps)
+
+VER GRAFICO SI HAY DUDAS DEL CICLO DE VIDA
+Usar LAteUpdate para la camara del juego, para qie no vaya a tirones asi se centra despues de q se mueva el jugador
+FixedUpdate se ejecuta a frecuencia fija a diferencia del update que depende de los fps aqui ejecutamos las fisicas y fuerzaqs cuidado con re`peticiones
+
+Awake y Start solo se ejecutan 1 vez, enable muchas ya que podemos activar y desactivar el objeto las veces que queramos
+Ciclo de vida: Awake(cuando se crea, inicializar) OnEnable(activarlo, asignar eventos y delegados) Start(para inicializar o obtenr datps de awake)  Update, Ondisabled(quitar eventos o delegados) Destroy
+
+
+ 
+METODS ONGUI y ONGUILAYOUT es como swing o forms
+
+FindObjectsOfType
+GetComponent(s)
+AddComponent a un gameobject por ejemplo un Rigidbody
+
+
+API:
+print() llama de forma resumida a Debug.Log
+Input. todo esto para controles KeyCode (ver botones virtuales si hay tiempo de hacerlo para mando)
+Screen para resolucion y demas infromacion de la pantlla , usar si se hace menu d resoluciones
+Camera (Camera.main para la principal)
+Time. (para el bullet time usando Time.timescale=0.2f)  Time.deltaTime como en libgdx para hacer independiente animaciones de los fps
+Random.
+Transform. no confundir con transform que es el del objeto,,,,,transform.position para mover el objeto, podemos hasta ponerlo donde hagamos click si usamos Camera.main.ScreenToworldpoint(Input.MousePosition)
+Rotate. si esta rotando y lo queremos mover a la vez tendremos que usar un parametro extra en el translate que seria (x,y,z,Space.World)
+transform.LookAt(vector3 o transfomr de otro objeto) (USAR PARA QUE APUNTE EL JUGADOR A LA CAMERA)
+.setActive(bool) para objetos desactivarlos o no usaremos un script que tenga otro objeto como porpiedad si no cuando se desactive no podriamos volver a activarlo
+ 
+Para instanciar objetos (prefabs ) Instantiate(GameObject,Vector3)
+para destruit Destroy(object,(float delay))
+
+HACER UN POOL EN VEZ DE CREAR Y DESTRUIR
+
+SI HACE FALTA VER LA SECCION DE CORUTINAS
