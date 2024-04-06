@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5.0f;
     private Vector3 movementDirection = Vector3.zero;
     public bool moving = false;
+    public Animator animator;
 
     void Update()
     {
@@ -37,6 +38,12 @@ public class PlayerMovement : MonoBehaviour
         if (moving)
         {
             transform.Translate(movementDirection.normalized * speed * Time.deltaTime, Space.World);
+            animator.SetBool("moving",true); //le pasamos a la variable de la condicion en el animator para saber que animacion poner
+        }
+        else
+        {
+            animator.SetBool("moving", false);
+
         }
     }
 }
