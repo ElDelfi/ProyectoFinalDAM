@@ -12,3 +12,7 @@ Ya que empiezo de 0 con Unity para comenzar pensé en que sería buena idea real
 #### 23/3/2024
   He conseguido unos sprites y assets de un proyecto de otro clon de hotline miami para unity, tal vez mas adelante los cambio o algo pero por ahora quedaran estos así tbn puedo hacer pruebas, que yo no sirvo de diseñador.
   Despues de los atracones que me metí estos días ahora voy a descanasar hasta el día 2, ya que ahora estoy bastante más tranquilo al entender mejor Unity y su funcionamiento antes me estaba agobiando yo solo.
+#### 06/4/2024
+Esta semana al empezar las prácticas fue mortal, y estaba tan cansado que ponerse con esto era imposible.
+
+Ahora retome el proyecto para seguir y estaba intentando con tutoriales usar el animador de Unity, conseguí que se moviera el personaje y transicionar entre estados, poco a poco. Entre lo que queda de hoy y mañana espero hacer más progresos pero esta semana fue dura.
