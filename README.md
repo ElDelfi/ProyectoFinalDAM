@@ -16,3 +16,9 @@ Ya que empiezo de 0 con Unity para comenzar pensé en que sería buena idea real
 Esta semana al empezar las prácticas fue mortal, y estaba tan cansado que ponerse con esto era imposible.
 
 Ahora retome el proyecto para seguir y estaba intentando con tutoriales usar el animador de Unity, conseguí que se moviera el personaje y transicionar entre estados, poco a poco. Entre lo que queda de hoy y mañana espero hacer más progresos pero esta semana fue dura.
+#### 07/4/2024
+Creado objeto hijo Legs para el personaje, ya que en el Hotline Miami se mueven distinto al torso y solucionado un problema con sus ángulos y las animaciones, creado prefab de Bullet y con un pequeño codigo para que al colisionar con algo se eliminen, y scripts para el personaje para disparar y coger arma, pero estos dos ultimos bastante brutos como primera aproximación ya que me estaban dando muchos problemas ahora ya mejor.
+
+Me estaba/estoy agobiando ya que al ser principiante con Unity y así me está dando miedo la escala del proyecto porque voy a tener que tener en cuenta que tipo de arma cojo, y según eso cambiar animaciones y puntos de disparo y cosas así que en un primer momento ni te planteas que vayan a ser un problema y me está asustando.
+
+Puse unas cuantas variables e ideas en el código sobre como afrontar eso pero no sé, tambien arreglados unos problemas con balas infinitas poniendo cooldown al firerate y el ángulo en el que aparecían entre otras cosas, con estas chorradas al final ya eche casi todo el día.
