@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PickUpWeapon : MonoBehaviour
 {
+    public string name;
     public float fireRate;
     PlayerAttack playerAttack;
     public bool gun, oneHanded, shotgun;
@@ -24,11 +25,12 @@ public class PickUpWeapon : MonoBehaviour
     void OnTriggerStay2D(Collider2D collider)
     {
         //Debug.Log ("Collision");
-        if (collider.gameObject.tag == "Player" && Input.GetMouseButtonDown(1))
-
+        if (collider.gameObject.tag == "Player" && Input.GetMouseButtonDown(1)) {      
             Debug.Log("Player picked up gun: ");
-         
-            this.gameObject.SetActive(false); 
+            playerAttack.hasGun = true;
+            this.gameObject.SetActive(false);       
+        }
+
         
     }
 }

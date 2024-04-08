@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private Animator animator;
     GameObject currentWeapon;
-    bool hasGun = true; // A MACHETE AQUI PARA PROBAR/
+    public bool hasGun = false; // A MACHETE AQUI PARA PROBAR/
     float fireRate = 0.1f;
     float nextFireTime = 0f; // time when the player can fire again
     public float cooldownTime = 1f; // cooldown 
@@ -14,9 +15,13 @@ public class PlayerAttack : MonoBehaviour
     public Transform firePoint;
     public float bulletForce = 20f;
 
+    public float meleeRange = 0.5f;
+
+
+
     void Start()
     {
-
+        animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -44,7 +49,21 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            //  melee aqui 
+            animator.SetTrigger("meleAttack");
+
+            //tiene sobrecarga con LayerMask para filtrar layers
+            Collider2D[] hitEnemies= Physics2D.OverlapCircleAll(firePoint.position, meleeRange);
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                Debug.Log("KAPOW");
+            }
         }
+        animator.SetBool("hasGun", hasGun);
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    fue para ver el radio del melee al principio para ajustarlo guay
+    //    Gizmos.DrawSphere(firePoint.position, meleeRange);
+    //}
 }
