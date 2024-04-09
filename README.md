@@ -24,3 +24,5 @@ Me estaba/estoy agobiando ya que al ser principiante con Unity y así me está d
 Puse unas cuantas variables e ideas en el código sobre como afrontar eso pero no sé, tambien arreglados unos problemas con balas infinitas poniendo cooldown al firerate y el ángulo en el que aparecían entre otras cosas, con estas chorradas al final ya eche casi todo el día.
 ### 08/4/2024
 Hoy cree unas cuantas animaciones más e hice un sistema de melee bastante rudimentario despues de pensar como hacer, editadas algunas variables más y pocos cambios a mayores, tengo en la cabeza una idea asignando nombres a cada arma para luego saber que animación usar, pero por hoy ya está que con el trabajo quiero descansar un poco de pantallas.
+### 09/4/2024
+Arreglado el melee infinito y poco más hoy estaba algo bloqueado y tuve poco tiempo espero que esta semana mejor.
