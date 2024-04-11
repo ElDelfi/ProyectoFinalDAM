@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private Animator animator;
-    GameObject currentWeapon;
+    public GameObject currentWeapon;
     public bool hasGun = false; // A MACHETE AQUI PARA PROBAR/
     float fireRate = 0.1f;
     float nextFireTime = 0f; // time when the player can fire again
@@ -35,11 +35,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("PIUMMM");
+        //Debug.Log("PIUMMM");
 
         if (hasGun)
         {
-
+            Debug.Log("DISPARO DE: " +currentWeapon.name);
             if (Time.time >= nextFireTime)
             {
                 GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

@@ -231,7 +231,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.4}
+  m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &8336986
 SpriteRenderer:
@@ -500,7 +500,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.01511085, y: -0.033999022}
-  m_Size: {x: 0.4, y: 1.0399998}
+  m_Size: {x: 0.7, y: 0.4}
   m_Direction: 0
 --- !u!114 &274949943
 MonoBehaviour:
@@ -514,12 +514,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7934fe77a2b941240912dd5ce52b3514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 0}
   hasGun: 0
   cooldownTime: 1
   bulletPrefab: {fileID: 1761304570319270153, guid: 5b0498e8f51dd994284ccf4bcf595490, type: 3}
   firePoint: {fileID: 706372197}
   bulletForce: 20
-  meleeRange: 0.3
 --- !u!1 &410865152
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +628,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.4}
+  m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &410865156
 SpriteRenderer:
@@ -943,7 +943,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.4}
+  m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &714298946
 SpriteRenderer:
@@ -1005,13 +1005,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714298942}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0022185764, w: 0.9999976}
   m_LocalPosition: {x: -4.037, y: 0.909, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.254}
 --- !u!1 &869500401
 GameObject:
   m_ObjectHideFlags: 0
