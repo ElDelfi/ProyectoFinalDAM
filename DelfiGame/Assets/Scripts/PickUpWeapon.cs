@@ -25,14 +25,16 @@ public class PickUpWeapon : MonoBehaviour
     void OnTriggerStay2D(Collider2D collider)
     {
         Debug.Log("CollisionARMA");
-        Debug.Log(""+collider.name);
-        if (collider.gameObject.tag == "Player" && Input.GetMouseButtonDown(1)) {
+        Debug.Log("" + collider.name);
+        if (collider.gameObject.tag == "Player"&& Input.GetMouseButton(1))
+        {
             Debug.Log("Player picked up gun: ");
+            playerAttack.changingWeapon = true;
+            playerAttack.weaponChangeCooldwon=0.5f;
             playerAttack.hasGun = true;
             playerAttack.currentWeapon = this.gameObject;
-            this.gameObject.SetActive(false);       
+            this.gameObject.SetActive(false);
         }
 
-        
     }
 }
