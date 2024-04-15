@@ -7,7 +7,7 @@ public class PlayerAttack : MonoBehaviour
 {
     private Animator animator;
     public GameObject currentWeapon;
-    public bool hasGun = false; 
+    public bool hasGun = false;
     float fireRate = 0.1f;
     float nextFireTime = 0f; // time when the player can fire again
     public float cooldownTime = 0.3f; // cooldown 
@@ -33,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
     {
         //funcion para lanzar el arma actual TODO ARREGLAR YA QUE LO QUITA AL INSTANTE DEPSUES DE COGERLA
 
-        if (hasGun && Input.GetMouseButtonDown(1)&&!changingWeapon)
+        if (hasGun && Input.GetMouseButtonDown(1) && !changingWeapon)
         {
 
             ThrowWeapon();
@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
         if (changingWeapon)
         {
             weaponChangeCooldwon -= Time.deltaTime;
-            if (weaponChangeCooldwon<=0)
+            if (weaponChangeCooldwon <= 0)
             {
                 changingWeapon = false;
             }
@@ -118,8 +118,17 @@ public class PlayerAttack : MonoBehaviour
                 animator.SetBool("hasShotgun", false);
                 break;
         }
-        Destroy(currentWeapon);
         hasGun = false;
+
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - Camera.main.transform.position.z));
+        currentWeapon.AddComponent<ThrowWeapon>();
+        Vector3 direction = new Vector3(mousePosition.x - this.transform.position.x, mousePosition.y - this.transform.position.y, 0);
+        currentWeapon.GetComponent<Rigidbody2D>().isKinematic = false;
+        currentWeapon.GetComponent<ThrowWeapon>().direction = direction;
+        currentWeapon.transform.position = firePoint.position;
+        currentWeapon.transform.eulerAngles = this.transform.eulerAngles;
+        currentWeapon.SetActive(true);
+        //Destroy(currentWeapon);
     }
 
     //private void OnDrawGizmos()

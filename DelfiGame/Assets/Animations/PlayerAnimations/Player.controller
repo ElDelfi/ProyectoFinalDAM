@@ -36,6 +36,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: shotgunShoots
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: hasShotgun
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1791119808617003133}
   m_Solo: 0
@@ -215,6 +218,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: uziShoots
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: hasUzi
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6292960220611063453}
