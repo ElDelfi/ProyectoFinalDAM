@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator animator;
     public GameObject currentWeapon;
     public bool hasGun = false;
-    float fireRate = 0.1f;
+    public float fireRate = 0.1f;
     float nextFireTime = 0f; // time when the player can fire again
     public float cooldownTime = 0.3f; // cooldown 
 
@@ -66,27 +66,44 @@ public class PlayerAttack : MonoBehaviour
             {
                 case "UZI":
                     animator.SetBool("hasUzi", true);
-                    animator.SetTrigger("uziShoots");
-
                     //Vector3 relativePosition = this.gameObject.transform.position + new Vector3(1f, 0.3f, 0);
                     //firePoint.transform.position = relativePosition;
                     break;
                 case "SHOTGUN":
                     animator.SetBool("hasShotgun", true);
-                    animator.SetTrigger("shotgunShoots");
                     break;
             }
-            Debug.Log("DISPARO DE: " + currentWeapon.name);
+            //Debug.Log("DISPARO DE: " + currentWeapon.name);
             if (Time.time >= nextFireTime)
             {
-                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-                bullet.transform.Rotate(Vector3.forward, 90); //NECESARIO YA QUE EL PREFAB APARECE SIEMPRE EN HORIZONTAL EN VEZ DE VERTICAL 
-                Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
-                rbBullet.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+                switch (currentWeapon.name)
+                {
+                    case "UZI":
+                        animator.SetTrigger("uziShoots");
+                        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                        bullet.transform.Rotate(Vector3.forward, 90); //NECESARIO YA QUE EL PREFAB APARECE SIEMPRE EN HORIZONTAL EN VEZ DE VERTICAL 
+                        Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
+                        rbBullet.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+
+                        break;
+                    case "SHOTGUN":
+
+                        animator.SetTrigger("shotgunShoots");
+                        for (int i = 0; i < 5; i++) // Cambiar 5 por la variable que determines cuántas balas se disparan
+                        {
+                            // el 45 es el angulo de dispersion
+                            float spreadAngle = UnityEngine.Random.Range(-45 / 2f, 45 / 2f);
+                            Quaternion rotation = Quaternion.Euler(0f, 0f, firePoint.rotation.eulerAngles.z + spreadAngle);
+
+                            GameObject shotgunBullet = Instantiate(bulletPrefab, firePoint.position, rotation);
+                            Rigidbody2D rbShotgunBullet = shotgunBullet.GetComponent<Rigidbody2D>();
+                            rbShotgunBullet.AddForce(rotation * Vector2.up * bulletForce, ForceMode2D.Impulse);
+
+                        }
+                    break;
+                }
                 nextFireTime = Time.time + fireRate;
-
             }
-
         }
         else
         {

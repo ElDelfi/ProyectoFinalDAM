@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float destroyBulletTimer = 5f;
+    public GameObject bulletImpactPrefab;
+    public GameObject bulletBloodPrefab;
 
     void Update()
     {
@@ -17,11 +19,18 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
-        //if (true) AQUI HACER UN IF PARA VER SI LE DA A UN ENEMIGO O NO
-        //{
+        if (collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "FirePoint")
+        {
+            if (collision.gameObject.tag == "Enemy") //AQUI HACER UN IF PARA VER SI LE DA A UN ENEMIGO O NO
+            {
+                Instantiate(bulletBloodPrefab, this.transform.position, this.transform.rotation);
 
-        //}
-        //en el futuro probablemente añadir si le da a más cosas como paredes
+            }
+            else
+            {
+                Instantiate(bulletImpactPrefab, this.transform.position, this.transform.rotation);
+            }
+            Destroy(this.gameObject);
+        }
     }
 }

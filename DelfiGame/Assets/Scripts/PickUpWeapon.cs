@@ -8,7 +8,7 @@ public class PickUpWeapon : MonoBehaviour
     public string name;
     public float fireRate;
     PlayerAttack playerAttack;
-    public bool gun, oneHanded, shotgun;
+    public bool gun;
     public int ammo;
 
     void Start()
@@ -30,6 +30,7 @@ public class PickUpWeapon : MonoBehaviour
         {
             Debug.Log("Player picked up gun: ");
             playerAttack.changingWeapon = true;
+            playerAttack.fireRate = this.fireRate;
             playerAttack.weaponChangeCooldwon=0.5f;
             playerAttack.hasGun = true;
             playerAttack.currentWeapon = this.gameObject;
