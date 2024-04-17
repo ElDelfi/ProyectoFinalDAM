@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     private float destroyBulletTimer = 5f;
     public GameObject bulletImpactPrefab;
     public GameObject bulletBloodPrefab;
+    private EnemyDamaged enemyDamagedScript;
 
     void Update()
     {
@@ -24,7 +25,8 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject.tag == "Enemy") //AQUI HACER UN IF PARA VER SI LE DA A UN ENEMIGO O NO
             {
                 Instantiate(bulletBloodPrefab, this.transform.position, this.transform.rotation);
-
+                enemyDamagedScript = collision.gameObject.GetComponent<EnemyDamaged>();
+                enemyDamagedScript.killedByBullet();
             }
             else
             {

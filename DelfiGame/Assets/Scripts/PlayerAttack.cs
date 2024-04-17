@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator animator;
     public GameObject currentWeapon;
     public bool hasGun = false;
+    public bool hasMeleGun = false;
     public float fireRate = 0.1f;
     float nextFireTime = 0f; // time when the player can fire again
     public float cooldownTime = 0.3f; // cooldown 
@@ -16,13 +17,14 @@ public class PlayerAttack : MonoBehaviour
     public Transform firePoint;
     public float bulletForce = 20f;
 
-    private float meleeRange = 0.5f;
+    private float meleeRange = 0.25f;
     private float meleeCooldown = 1f;
     private float nextMeleTime = 0f;
 
     public float weaponChangeCooldwon = 0.5f; //necesario porque si no al recoger un arma la suelta instantaneamente por el button(1) del raton
     public bool changingWeapon = false;
 
+    private EnemyDamaged enemyDamagedScript;
 
     void Start()
     {
@@ -57,8 +59,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        //Debug.Log("PIUMMM");
-
         if (hasGun)
         {
             //en este switch añadir las armas
@@ -100,7 +100,7 @@ public class PlayerAttack : MonoBehaviour
                             rbShotgunBullet.AddForce(rotation * Vector2.up * bulletForce, ForceMode2D.Impulse);
 
                         }
-                    break;
+                        break;
                 }
                 nextFireTime = Time.time + fireRate;
             }
@@ -116,10 +116,15 @@ public class PlayerAttack : MonoBehaviour
                 nextMeleTime = Time.time + meleeCooldown;
             }
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, meleeRange);
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position - new Vector3(0.65f, 0, 0), meleeRange);
             foreach (Collider2D enemy in hitEnemies)
             {
-                Debug.Log("KAPOW");
+                if (enemy.tag == "Enemy")
+                {
+                    Debug.Log("KAPOW");              
+                    enemyDamagedScript = enemy.gameObject.GetComponent<EnemyDamaged>();
+                    enemyDamagedScript.isKnockedDown=true;
+                }
             }
         }
         animator.SetBool("hasGun", hasGun);
@@ -148,9 +153,11 @@ public class PlayerAttack : MonoBehaviour
         //Destroy(currentWeapon);
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    fue para ver el radio del melee al principio para ajustarlo guay
-    //    Gizmos.DrawSphere(firePoint.position, meleeRange);
-    //}
+    private void OnDrawGizmos()
+    {
+        //fue para ver el radio del melee al principio para ajustarlo guay
+        Gizmos.DrawSphere(firePoint.position - new Vector3(0.65f, 0, 0), meleeRange);
+    }
 }
+
+//TODO UTILIZAR EL BOOL DE HASMELEWEAPON PARA DIFERENCIAR ENTE CUCHILLO Y PUÑO PARA ANIMACIONES Y A LA HORA DE LLAMAR A ENEMY DAMAGED
