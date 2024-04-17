@@ -40,3 +40,5 @@ Modificado el script de player attack, como el método para seguir el ratón par
 Tuve algunos problemas al principio, porque hay que volver a hacer que sea un sensor o no cuando se lanza y choca además de las físicas y sus valores pero todo bien ahora.
 ### 16/4/2024
 Creados prefabs con efectos para colisiones de balas, sangre para los enemigos y otro efecto contra paredes, pequeños ajustes a distintos scripts para que funcione todo, y cambiado el script de atacar ahora cuando tienes la escopeta genera 5 balas con dispersión para hacer el efecto de escopeta, me llevo más tiempo del esperado pero bueno fue saliendo, tambien cambie el firerate de las armas y el order layer para que tengan sentido las cosas.
+### 17/4/2024
+Ajustado el rango del melee para que sea menos falso, y cuando se golpea solo con el puño a un enemigo este queda noqueado durante 2 segundos y se vuelve a levantar, se distingue tambien entre matarlo a melee o con una bala y genera un charco de sangre donde muera.
