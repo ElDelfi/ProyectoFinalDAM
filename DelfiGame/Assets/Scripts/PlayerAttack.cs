@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator animator;
     public GameObject currentWeapon;
     public bool hasGun = false;
-    public bool hasMeleGun = false;
+    public bool isMeleGun = false;
     public float fireRate = 0.1f;
     float nextFireTime = 0f; // time when the player can fire again
     public float cooldownTime = 0.3f; // cooldown 
@@ -59,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        if (hasGun)
+        if (hasGun && !isMeleGun)
         {
             //en este switch añadir las armas
             switch (currentWeapon.name)
@@ -107,25 +107,43 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
+            if (isMeleGun)
+            {
+                animator.SetBool("hasKnife", true);
+            }
+
             if (Time.time >= nextMeleTime)
             {
-
-                animator.SetTrigger("meleAttack");
-
+                if (isMeleGun)
+                {
+                    animator.SetTrigger("knifeAttack");
+                }
+                else
+                {
+                    animator.SetTrigger("meleAttack");
+                }
                 //tiene sobrecarga con LayerMask para filtrar layers
                 nextMeleTime = Time.time + meleeCooldown;
-            }
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position - new Vector3(0.65f, 0, 0), meleeRange);
-            foreach (Collider2D enemy in hitEnemies)
-            {
-                if (enemy.tag == "Enemy")
+                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position - new Vector3(0.65f, 0, 0), meleeRange);
+                foreach (Collider2D enemy in hitEnemies)
                 {
-                    Debug.Log("KAPOW");              
-                    enemyDamagedScript = enemy.gameObject.GetComponent<EnemyDamaged>();
-                    enemyDamagedScript.isKnockedDown=true;
+                    if (enemy.tag == "Enemy")
+                    {
+                        Debug.Log("KAPOW");
+                        enemyDamagedScript = enemy.gameObject.GetComponent<EnemyDamaged>();
+                        if (isMeleGun)
+                        {
+                            enemyDamagedScript.killedByMele();
+                        }
+                        else
+                        {
+                            enemyDamagedScript.isKnockedDown = true;
+                        }
+                    }
                 }
             }
+
         }
         animator.SetBool("hasGun", hasGun);
     }
@@ -138,6 +156,10 @@ public class PlayerAttack : MonoBehaviour
                 break;
             case "SHOTGUN":
                 animator.SetBool("hasShotgun", false);
+                break;
+            case "KNIFE":
+                animator.SetBool("hasKnife", false);
+                isMeleGun = false;
                 break;
         }
         hasGun = false;

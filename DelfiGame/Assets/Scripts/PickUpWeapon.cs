@@ -34,6 +34,10 @@ public class PickUpWeapon : MonoBehaviour
             playerAttack.weaponChangeCooldwon=0.5f;
             playerAttack.hasGun = true;
             playerAttack.currentWeapon = this.gameObject;
+            if (name=="KNIFE")
+            {
+                playerAttack.isMeleGun = true;         
+            }
             this.gameObject.SetActive(false);
         }
 
