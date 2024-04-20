@@ -38,12 +38,8 @@ public class PlayerMovement : MonoBehaviour
         if (moving)
         {
             transform.Translate(movementDirection.normalized * speed * Time.deltaTime, Space.World);
-            animator.SetBool("moving",true); //le pasamos a la variable de la condicion en el animator para saber que animacion poner
         }
-        else
-        {
-            animator.SetBool("moving", false);
 
-        }
+        animator.SetBool("moving", moving);
     }
 }

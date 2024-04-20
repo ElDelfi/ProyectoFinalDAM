@@ -41,6 +41,7 @@ public class EnemyDamaged : MonoBehaviour
         knockedDownTime -= Time.deltaTime;
         spriteRenderer.sprite = spriteKnockedDown;
         this.GetComponent<Collider2D>().enabled = false;
+        this.GetComponent<EnemyIA>().enabled = false;
 
         if (knockedDownTime <= 0)
         {
@@ -48,6 +49,8 @@ public class EnemyDamaged : MonoBehaviour
             knockedDownTime = 2f;
             this.GetComponent<Collider2D>().enabled = true;
             spriteRenderer.sprite= spriteStanding;
+            this.GetComponent<EnemyIA>().enabled = true;
+
         }
     }
 
@@ -60,6 +63,7 @@ public class EnemyDamaged : MonoBehaviour
 
     private void startDeath()
     {
+        this.GetComponent<EnemyIA>().enabled = false;
         this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         //this.GetComponent<Transform>().rotation = Quaternion.Euler(0f, 0f, 0f);
         this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
