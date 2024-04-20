@@ -10,6 +10,7 @@ public class ThrowWeapon : MonoBehaviour
     Rigidbody2D rb;
     Collider2D col;
 
+    private EnemyDamaged enemyDamagedScript;
     void Start()
     {
 
@@ -39,6 +40,12 @@ public class ThrowWeapon : MonoBehaviour
             //PONER LOGICA DE QUE HACER AL DARLE A ENEMIGO
             StopWeapon();
 
+        }
+        
+        if (collision.gameObject.tag == "Enemy")
+        {
+            enemyDamagedScript = collision.gameObject.GetComponent<EnemyDamaged>();
+            enemyDamagedScript.isKnockedDown=true;
         }
 
     }

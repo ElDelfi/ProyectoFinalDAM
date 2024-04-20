@@ -46,3 +46,5 @@ Ajustado el rango del melee para que sea menos falso, y cuando se golpea solo co
 Ya funciona el ataque con cuchillo, diferenciandolo del ataque cuerpo a cuerpo normal ya que elimina al enemigo, tambien con sus animaciones. Hoy no tuve mucho tiempo para seguir más, lo bueno es que ya funcionan las 3 armas y el cuerpo a cuerpo bien.
 ### 20/4/2024
 Animadas piernas de los enemigos, creado script sencillo para la IA en el que el enemigo persigue y dispara al jugador si esta en cierto rango ,y pequeños cambios en otros scripts. Al final me llevo mucho más de lo esperado ya que las piernas de los enemigos me dieron muchos problemas y al final cree otra animación distinta en  vez de reutilizar el controlador de las piernas del personaje, y tambien fallos para que disparara el enemigo, pero bueno poco a poco aunque no estaba de más ir algo más rápido, también desactivo la IA cuando muere o es noqueado(en este caso luego se activa de vuelta) un enemigo que si no se siguen moviendo.
+
+Lo añadí ahora que se me había olvidado, que cuando un arma lanzada golpea a un enemigo es noqueado.

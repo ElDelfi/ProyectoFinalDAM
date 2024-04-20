@@ -25,6 +25,7 @@ public class EnemyDamaged : MonoBehaviour
         //aqui tengo que hacer booleana en el update para el metodo para que corra el tiempo del timer
         if (isKnockedDown)
         {
+            resetVelocity();
             knockedDown();
         }
     }
@@ -48,7 +49,7 @@ public class EnemyDamaged : MonoBehaviour
             isKnockedDown = false;
             knockedDownTime = 2f;
             this.GetComponent<Collider2D>().enabled = true;
-            spriteRenderer.sprite= spriteStanding;
+            spriteRenderer.sprite = spriteStanding;
             this.GetComponent<EnemyIA>().enabled = true;
 
         }
@@ -64,9 +65,14 @@ public class EnemyDamaged : MonoBehaviour
     private void startDeath()
     {
         this.GetComponent<EnemyIA>().enabled = false;
-        this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        resetVelocity();
         //this.GetComponent<Transform>().rotation = Quaternion.Euler(0f, 0f, 0f);
-        this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
         this.GetComponent<Collider2D>().enabled = false;
+    }
+
+    private void resetVelocity()
+    {
+        this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
     }
 }
