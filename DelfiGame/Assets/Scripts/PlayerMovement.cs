@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // reinicio del vector de dirección de movimiento para q no se siga moviendo
+        // reinicio del vector de dirección de movimiento para q no se siga moviendo y la velocidad angulos ya que por el tema balas y colsiiones a veces iba mal
+        this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
         movementDirection = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W))
