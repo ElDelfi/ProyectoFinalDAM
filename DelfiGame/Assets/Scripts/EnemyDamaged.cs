@@ -13,13 +13,15 @@ public class EnemyDamaged : MonoBehaviour
     private float knockedDownTime = 2f;
     public bool isKnockedDown = false;
     private SpriteRenderer spriteRenderer;
-    // Start is called before the first frame update
+
+    private Score score;
+
     void Start()
     {
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+        score = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<Score>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //aqui tengo que hacer booleana en el update para el metodo para que corra el tiempo del timer
@@ -32,6 +34,8 @@ public class EnemyDamaged : MonoBehaviour
 
     public void killedByBullet()
     {
+        score.AddScore(1000, this.transform.position);
+        score.multiplier++;
         startDeath();
         spriteRenderer.sprite = spriteDeadBullet;
         Instantiate(bloodPoolPrefab, this.transform.position, this.transform.rotation);
@@ -39,16 +43,18 @@ public class EnemyDamaged : MonoBehaviour
 
     public void knockedDown()
     {
-        knockedDownTime -= Time.deltaTime;
+        //score.AddScore(500, this.transform.position);
+        //knockedDownTime -= Time.deltaTime;
+
         spriteRenderer.sprite = spriteKnockedDown;
-        this.GetComponent<Collider2D>().enabled = false;
+        this.GetComponent<Collider2D>().isTrigger = true;
         this.GetComponent<EnemyIA>().enabled = false;
 
         if (knockedDownTime <= 0)
         {
             isKnockedDown = false;
             knockedDownTime = 2f;
-            this.GetComponent<Collider2D>().enabled = true;
+            this.GetComponent<Collider2D>().isTrigger = false;
             spriteRenderer.sprite = spriteStanding;
             this.GetComponent<EnemyIA>().enabled = true;
 
@@ -57,6 +63,8 @@ public class EnemyDamaged : MonoBehaviour
 
     public void killedByMele()
     {
+        score.AddScore(500, this.transform.position);
+        score.increaseMultiplier();
         startDeath();
         spriteRenderer.sprite = spriteDeadMele;
         Instantiate(bloodPoolPrefab, this.transform.position, this.transform.rotation);
@@ -74,5 +82,12 @@ public class EnemyDamaged : MonoBehaviour
     {
         this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+    }
+
+    private void gloryKill() {
+        score.AddScore(1000, this.transform.position);
+        score.increaseMultiplier();
+        //TODO AHORA QUE SE CAMBIO POR TRIGGER SI ESTA DENTRO EL PERSONAJE HACER EJECUCION
+        //PENSARLO!!!!!!!!!!!!!!!!!!!!!
     }
 }

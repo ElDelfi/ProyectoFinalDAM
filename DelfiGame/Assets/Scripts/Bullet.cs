@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     public GameObject bulletBloodPrefab;
     private EnemyDamaged enemyDamagedScript;
 
+    private PlayerDeathController playerDeathController;
+
     void Update()
     {
         destroyBulletTimer -= Time.deltaTime;
@@ -27,6 +29,11 @@ public class Bullet : MonoBehaviour
                 Instantiate(bulletBloodPrefab, this.transform.position, this.transform.rotation);
                 enemyDamagedScript = collision.gameObject.GetComponent<EnemyDamaged>();
                 enemyDamagedScript.killedByBullet();
+            }
+            else if (collision.gameObject.tag == "Player")
+            {
+                playerDeathController = collision.gameObject.GetComponent<PlayerDeathController>();
+                playerDeathController.isDead = true;
             }
             else
             {
