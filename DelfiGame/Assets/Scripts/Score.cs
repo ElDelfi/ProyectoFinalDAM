@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -11,11 +12,11 @@ public class Score : MonoBehaviour
     public int multiplier = 1;
     float comboTimer = 0.0f;
     int scoreHold = 0; //son los puntos obtenidos antes de que se acabe el combo, luego se suman al acabar el timer
-
+    public TextMeshProUGUI scoreTextGUI;
    
     void Start()
     {
-
+        refreshScoreGUI();
     }
 
     void Update()
@@ -37,6 +38,8 @@ public class Score : MonoBehaviour
         {
             Instantiate(prefab1000, spawnPos, prefab1000.transform.rotation);
         }
+        refreshScoreGUI();
+
     }
 
     public void increaseMultiplier()
@@ -44,9 +47,11 @@ public class Score : MonoBehaviour
         Debug.Log("multiplier:" + multiplier);
         multiplier++;
         comboTimer = 3.5f; //resetea el tiempo del combo
+        refreshScoreGUI();
+
     }
 
-    void comboCountdown()
+    private void comboCountdown()
     {
 
         if (scoreHold > 0)
@@ -58,8 +63,13 @@ public class Score : MonoBehaviour
                 score += (scoreHold * multiplier);
                 scoreHold = 0;
                 multiplier = 1;
+                refreshScoreGUI();
             }
         }
+    }
+
+    private void refreshScoreGUI() {
+        scoreTextGUI.SetText($"Points: {score}\nCombo: {multiplier}");
     }
 
 }

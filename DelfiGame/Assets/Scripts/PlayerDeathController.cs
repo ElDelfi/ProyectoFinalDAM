@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerDeathController : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class PlayerDeathController : MonoBehaviour
     private FollowCursor cursor;
     private LegDirectionRotation legs;
     private PlayerAttack pa;
+    public TextMeshProUGUI restartText;
     private void Start()
     {
          spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -21,9 +24,11 @@ public class PlayerDeathController : MonoBehaviour
          cursor = this.GetComponent<FollowCursor>();
          pa = this.GetComponent<PlayerAttack>();
          legs = this.GetComponentInChildren<LegDirectionRotation>();
+      
     }
     void Update()
     {
+
         if (isDead)
         {
             playerDies();
@@ -38,6 +43,9 @@ public class PlayerDeathController : MonoBehaviour
 
     void playerDies()
     {
+        restartText.gameObject.SetActive(true);
+
+
         this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
 
@@ -58,8 +66,8 @@ public class PlayerDeathController : MonoBehaviour
 
     void restartPlayer()
     {
-
-        legs.GetComponent<Animator>().enabled = true;
+        restartText.gameObject.SetActive(false);
+        legs.GetComponent<Animator>().enabled = false;
 
 
         animator.enabled = true;

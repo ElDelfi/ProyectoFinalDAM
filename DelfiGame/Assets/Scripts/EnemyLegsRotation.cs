@@ -22,7 +22,7 @@ public class EnemyLegsRotation : MonoBehaviour
 
         // Check if the current position is different from the previous position
         bool isEnemyMoving = currentPosition != previousPosition;
-        Debug.Log("Current " + currentPosition +"Previus: " +previousPosition+"  "+isEnemyMoving);
+        //Debug.Log("Current " + currentPosition +"Previus: " +previousPosition+"  "+isEnemyMoving);
 
         animator.SetBool("moving", isEnemyMoving);
 

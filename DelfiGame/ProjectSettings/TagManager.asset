@@ -9,6 +9,8 @@ TagManager:
   - FirePoint
   - Weapon
   - ScoreController
+  - UI
+  - Dead
   layers:
   - Default
   - TransparentFX

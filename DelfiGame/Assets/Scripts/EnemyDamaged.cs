@@ -35,10 +35,11 @@ public class EnemyDamaged : MonoBehaviour
     public void killedByBullet()
     {
         score.AddScore(1000, this.transform.position);
-        score.multiplier++;
+        score.increaseMultiplier();
         startDeath();
         spriteRenderer.sprite = spriteDeadBullet;
         Instantiate(bloodPoolPrefab, this.transform.position, this.transform.rotation);
+        this.gameObject.tag = "Dead";
     }
 
     public void knockedDown()
@@ -68,6 +69,8 @@ public class EnemyDamaged : MonoBehaviour
         startDeath();
         spriteRenderer.sprite = spriteDeadMele;
         Instantiate(bloodPoolPrefab, this.transform.position, this.transform.rotation);
+        this.gameObject.tag = "Dead";
+
     }
 
     private void startDeath()
@@ -84,9 +87,16 @@ public class EnemyDamaged : MonoBehaviour
         this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
     }
 
-    private void gloryKill() {
+    public void gloryKill() {
+        Debug.Log("EXECUTED");
         score.AddScore(1000, this.transform.position);
         score.increaseMultiplier();
+        this.GetComponent<Collider2D>().isTrigger = false;
+        startDeath();
+        spriteRenderer.sprite = spriteDeadBullet;
+        Instantiate(bloodPoolPrefab, this.transform.position, this.transform.rotation);
+        this.gameObject.tag = "Dead";
+
         //TODO AHORA QUE SE CAMBIO POR TRIGGER SI ESTA DENTRO EL PERSONAJE HACER EJECUCION
         //PENSARLO!!!!!!!!!!!!!!!!!!!!!
     }
