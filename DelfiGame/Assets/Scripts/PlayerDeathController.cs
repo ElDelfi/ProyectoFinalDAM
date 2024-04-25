@@ -15,7 +15,7 @@ public class PlayerDeathController : MonoBehaviour
     private FollowCursor cursor;
     private LegDirectionRotation legs;
     private PlayerAttack pa;
-    public TextMeshProUGUI restartText;
+    public GameObject restartText;
     private void Start()
     {
          spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -43,7 +43,7 @@ public class PlayerDeathController : MonoBehaviour
 
     void playerDies()
     {
-        restartText.gameObject.SetActive(true);
+        restartText.SetActive(true);
 
 
         this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
@@ -66,7 +66,7 @@ public class PlayerDeathController : MonoBehaviour
 
     void restartPlayer()
     {
-        restartText.gameObject.SetActive(false);
+        restartText.SetActive(false);
         legs.GetComponent<Animator>().enabled = false;
 
 

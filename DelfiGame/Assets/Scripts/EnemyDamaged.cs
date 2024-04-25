@@ -45,7 +45,7 @@ public class EnemyDamaged : MonoBehaviour
     public void knockedDown()
     {
         //score.AddScore(500, this.transform.position);
-        //knockedDownTime -= Time.deltaTime;
+        knockedDownTime -= Time.deltaTime;
 
         spriteRenderer.sprite = spriteKnockedDown;
         this.GetComponent<Collider2D>().isTrigger = true;
