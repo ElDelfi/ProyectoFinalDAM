@@ -80,6 +80,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     case "UZI":
                         animator.SetTrigger("uziShoots");
+                        FindObjectOfType<AudioManager>().Play("MachineGun");
                         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
                         bullet.transform.Rotate(Vector3.forward, 90); //NECESARIO YA QUE EL PREFAB APARECE SIEMPRE EN HORIZONTAL EN VEZ DE VERTICAL 
                         Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
@@ -87,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
 
                         break;
                     case "SHOTGUN":
-
+                        FindObjectOfType<AudioManager>().Play("Shotgun");
                         animator.SetTrigger("shotgunShoots");
                         for (int i = 0; i < 5; i++) // Cambiar 5 por la variable que determines cuántas balas se disparan
                         {
@@ -117,10 +118,12 @@ public class PlayerAttack : MonoBehaviour
                 if (isMeleGun)
                 {
                     animator.SetTrigger("knifeAttack");
+                    FindObjectOfType<AudioManager>().Play("Knife");
                 }
                 else
                 {
                     animator.SetTrigger("meleAttack");
+                    FindObjectOfType<AudioManager>().Play("Mele");
                 }
                 //tiene sobrecarga con LayerMask para filtrar layers
                 nextMeleTime = Time.time + meleeCooldown;

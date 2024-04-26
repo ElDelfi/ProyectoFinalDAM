@@ -13,7 +13,7 @@ public class ThrowWeapon : MonoBehaviour
     private EnemyDamaged enemyDamagedScript;
     void Start()
     {
-
+        FindObjectOfType<AudioManager>().Play("Throw");
         rb = this.GetComponent<Rigidbody2D>();
         rb.AddForce(direction * 120);
 

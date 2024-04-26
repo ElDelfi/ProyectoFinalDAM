@@ -13,6 +13,7 @@ public class PickUpWeapon : MonoBehaviour
 
     void Start()
     {
+        FindObjectOfType<AudioManager>().Play("PickUp");
         playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     }
 

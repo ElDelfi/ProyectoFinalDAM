@@ -32,6 +32,8 @@ public class Bullet : MonoBehaviour
             }
             else if (collision.gameObject.tag == "Player")
             {
+                FindObjectOfType<AudioManager>().Play("Die");
+
                 playerDeathController = collision.gameObject.GetComponent<PlayerDeathController>();
                 playerDeathController.isDead = true;
             }

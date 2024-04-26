@@ -44,26 +44,33 @@ public class EnemyDamaged : MonoBehaviour
 
     public void knockedDown()
     {
-        //score.AddScore(500, this.transform.position);
-        knockedDownTime -= Time.deltaTime;
-
-        spriteRenderer.sprite = spriteKnockedDown;
-        this.GetComponent<Collider2D>().isTrigger = true;
-        this.GetComponent<EnemyIA>().enabled = false;
-
-        if (knockedDownTime <= 0)
+        if (this.gameObject.tag=="Enemy") //para que no lo haga si ya esta muerte por un bug
         {
-            isKnockedDown = false;
-            knockedDownTime = 2f;
-            this.GetComponent<Collider2D>().isTrigger = false;
-            spriteRenderer.sprite = spriteStanding;
-            this.GetComponent<EnemyIA>().enabled = true;
+            FindObjectOfType<AudioManager>().Play("Damaged");
 
+            //score.AddScore(500, this.transform.position);
+            knockedDownTime -= Time.deltaTime;
+
+            spriteRenderer.sprite = spriteKnockedDown;
+            this.GetComponent<Collider2D>().isTrigger = true;
+            this.GetComponent<EnemyIA>().enabled = false;
+
+            if (knockedDownTime <= 0)
+            {
+                isKnockedDown = false;
+                knockedDownTime = 2f;
+                this.GetComponent<Collider2D>().isTrigger = false;
+                spriteRenderer.sprite = spriteStanding;
+                this.GetComponent<EnemyIA>().enabled = true;
+
+            }
         }
+       
     }
 
     public void killedByMele()
     {
+
         score.AddScore(500, this.transform.position);
         score.increaseMultiplier();
         startDeath();
@@ -75,6 +82,8 @@ public class EnemyDamaged : MonoBehaviour
 
     private void startDeath()
     {
+        FindObjectOfType<AudioManager>().Play("Die");
+
         this.GetComponent<EnemyIA>().enabled = false;
         resetVelocity();
         //this.GetComponent<Transform>().rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -89,6 +98,8 @@ public class EnemyDamaged : MonoBehaviour
 
     public void gloryKill() {
         Debug.Log("EXECUTED");
+        this.GetComponent<EnemyIA>().enabled = false;
+        resetVelocity();
         score.AddScore(1000, this.transform.position);
         score.increaseMultiplier();
         this.GetComponent<Collider2D>().isTrigger = false;
