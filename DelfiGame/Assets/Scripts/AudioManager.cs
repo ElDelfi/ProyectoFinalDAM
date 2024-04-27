@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
-
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    public AudioMixer audioMixer;
 
     public static AudioManager instance;
 
@@ -19,6 +19,8 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        LoadVolume();
+
         DontDestroyOnLoad(this); //para que no desaparezca al psar entre scenes
         foreach (Sound s in sounds)
         {
@@ -28,6 +30,8 @@ public class AudioManager : MonoBehaviour
             s.source.volume=s.volume;
             s.source.pitch=s.pitch;
             s.source.loop=s.loop;
+
+            s.source.outputAudioMixerGroup = s.mixerGroup;
         }
     }
 
@@ -40,6 +44,15 @@ public class AudioManager : MonoBehaviour
     {
         //aqui poner en main theme
         FindObjectOfType<AudioManager>().Play("Theme");
+    }
+
+    void LoadVolume() { //para cargar el volumen de los ajustes
+        
+        float musicVolume=PlayerPrefs.GetFloat("MusicValue",0f);
+        float sfxVolume= PlayerPrefs.GetFloat("SFXValue",0f);
+
+        audioMixer.SetFloat("MusicValue", musicVolume);
+        audioMixer.SetFloat("SFXValue", sfxVolume);
     }
 }
 

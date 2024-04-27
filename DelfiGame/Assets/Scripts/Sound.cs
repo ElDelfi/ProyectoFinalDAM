@@ -4,6 +4,7 @@ using UnityEngine.Audio;
 [System.Serializable] //al ser clase custom para qu aparezca en el editor
 public class Sound 
 {
+    public AudioMixerGroup mixerGroup;
     public string name;
 
     public AudioClip clip;

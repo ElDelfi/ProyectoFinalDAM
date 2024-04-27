@@ -13,7 +13,6 @@ public class PickUpWeapon : MonoBehaviour
 
     void Start()
     {
-        FindObjectOfType<AudioManager>().Play("PickUp");
         playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     }
 
@@ -28,6 +27,8 @@ public class PickUpWeapon : MonoBehaviour
         //Debug.Log("" + collider.name);
         if (collider.gameObject.tag == "Player"&& Input.GetMouseButton(1))
         {
+            FindObjectOfType<AudioManager>().Play("PickUp");
+
             //Debug.Log("Player picked up gun: ");
             playerAttack.changingWeapon = true;
             playerAttack.fireRate = this.fireRate;
