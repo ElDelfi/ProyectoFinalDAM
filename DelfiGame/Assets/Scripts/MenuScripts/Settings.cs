@@ -21,12 +21,6 @@ public class Settings : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        sliderMusic.value= PlayerPrefs.GetFloat("MusicValue", 0f);
-        sliderSFX.value= PlayerPrefs.GetFloat("SFXValue", 0f);
-    }
-
     private void OnDisable()
     {
         PlayerPrefs.SetFloat("MusicValue", sliderMusic.value);
