@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 311028}
   - component: {fileID: 311027}
   m_Layer: 0
-  m_Name: Tilemap_Floor
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4604,7 +4604,7 @@ GameObject:
   - component: {fileID: 2097570029}
   - component: {fileID: 2097570028}
   m_Layer: 0
-  m_Name: Tilemap_Walls
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
