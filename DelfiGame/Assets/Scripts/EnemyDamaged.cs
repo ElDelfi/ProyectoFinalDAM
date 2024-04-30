@@ -13,13 +13,14 @@ public class EnemyDamaged : MonoBehaviour
     private float knockedDownTime = 2f;
     public bool isKnockedDown = false;
     private SpriteRenderer spriteRenderer;
-
+    private EnemyAttack enemyAttackScr;
     private Score score;
 
     void Start()
     {
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         score = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<Score>();
+        enemyAttackScr = this.GetComponent<EnemyAttack>();
     }
 
     void Update()
@@ -34,6 +35,7 @@ public class EnemyDamaged : MonoBehaviour
 
     public void killedByBullet()
     {
+        enemyLosesWeapon();
         score.AddScore(1000, this.transform.position);
         score.increaseMultiplier();
         startDeath();
@@ -44,7 +46,7 @@ public class EnemyDamaged : MonoBehaviour
 
     public void knockedDown()
     {
-        if (this.gameObject.tag=="Enemy") //para que no lo haga si ya esta muerte por un bug
+        if (this.gameObject.tag == "Enemy") //para que no lo haga si ya esta muerte por un bug
         {
             FindObjectOfType<AudioManager>().Play("Damaged");
 
@@ -54,6 +56,9 @@ public class EnemyDamaged : MonoBehaviour
             spriteRenderer.sprite = spriteKnockedDown;
             this.GetComponent<Collider2D>().isTrigger = true;
             this.GetComponent<EnemyIA>().enabled = false;
+
+            enemyLosesWeapon();
+
 
             if (knockedDownTime <= 0)
             {
@@ -65,12 +70,12 @@ public class EnemyDamaged : MonoBehaviour
 
             }
         }
-       
+
     }
 
     public void killedByMele()
     {
-
+        enemyLosesWeapon();
         score.AddScore(500, this.transform.position);
         score.increaseMultiplier();
         startDeath();
@@ -96,7 +101,8 @@ public class EnemyDamaged : MonoBehaviour
         this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
     }
 
-    public void gloryKill() {
+    public void gloryKill()
+    {
         Debug.Log("EXECUTED");
         this.GetComponent<EnemyIA>().enabled = false;
         resetVelocity();
@@ -110,5 +116,31 @@ public class EnemyDamaged : MonoBehaviour
 
         //TODO AHORA QUE SE CAMBIO POR TRIGGER SI ESTA DENTRO EL PERSONAJE HACER EJECUCION
         //PENSARLO!!!!!!!!!!!!!!!!!!!!!
+    }
+
+    public void enemyLosesWeapon()
+    {
+        if (enemyAttackScr.hasGun)
+        {
+            switch (enemyAttackScr.currentWeapon.name) //nombre del arma que tiene encima
+            {
+                case "KNIFE":
+                    GameObject knife = Instantiate(enemyAttackScr.knifePrefab, this.transform.position, this.transform.rotation);
+                    knife.name = enemyAttackScr.knifePrefab.name; //NECESARIO YA QUE SI NO EL NOMBRE SERÁ (CLONE) Y DESPUES SE LIAN LOS OTROS SCRIPT AL COMPARAR CADENAS
+                    break;
+                case "UZI":
+                    GameObject uzi = Instantiate(enemyAttackScr.uziPrefab, this.transform.position, this.transform.rotation);
+                    uzi.name = enemyAttackScr.uziPrefab.name; //NECESARIO YA QUE SI NO EL NOMBRE SERÁ (CLONE) Y DESPUES SE LIAN LOS OTROS SCRIPT AL COMPARAR CADENAS
+                    uzi.GetComponent<PickUpWeapon>().ammo=  enemyAttackScr.currentWeapon.GetComponent<PickUpWeapon>().ammo;
+                    break;
+                case "SHOTGUN":
+                    GameObject shotgun = Instantiate(enemyAttackScr.shotgunPrefab, this.transform.position, this.transform.rotation);
+                    shotgun.name = enemyAttackScr.shotgunPrefab.name; //NECESARIO YA QUE SI NO EL NOMBRE SERÁ (CLONE) Y DESPUES SE LIAN LOS OTROS SCRIPT AL COMPARAR CADENAS
+                    shotgun.GetComponent<PickUpWeapon>().ammo=  enemyAttackScr.currentWeapon.GetComponent<PickUpWeapon>().ammo;
+
+                    break;
+            }
+            enemyAttackScr.hasGun = false;
+        }
     }
 }

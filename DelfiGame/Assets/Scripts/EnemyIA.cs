@@ -51,7 +51,7 @@ public class EnemyIA : MonoBehaviour
                 //MoveTo(startingPosition);
                 //if (Vector3.Distance(transform.position, startingPosition) < 0.5f)
                 //{
-      
+
                 //    state = State.Roaming;
                 //}
                 break;
@@ -92,7 +92,11 @@ public class EnemyIA : MonoBehaviour
         float attackRange = 3f;
         if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
         {
-            enemyAttack.testShooting();
+            if (enemyAttack.hasGun)
+            {
+                enemyAttack.testShooting();
+
+            }
         }
 
 

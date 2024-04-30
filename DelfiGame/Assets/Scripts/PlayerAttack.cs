@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public TextMeshProUGUI ammoText;
     private Animator animator;
     public GameObject currentWeapon;
     public bool hasGun = false;
@@ -23,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
 
     public float weaponChangeCooldwon = 0.5f; //necesario porque si no al recoger un arma la suelta instantaneamente por el button(1) del raton
     public bool changingWeapon = false;
+    public PickUpWeapon currentWeaponScript; //hay que hacerlo asi sin pasar la propiedad como el resto porque si no si se lanza el arma y se vuelve a coger se recargan las balas
 
     private EnemyDamaged enemyDamagedScript;
 
@@ -34,6 +37,8 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         //funcion para lanzar el arma actual TODO ARREGLAR YA QUE LO QUITA AL INSTANTE DEPSUES DE COGERLA
+
+        controllAmmoText();
 
         if (hasGun && Input.GetMouseButtonDown(1) && !changingWeapon)
         {
@@ -74,7 +79,7 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
             //Debug.Log("DISPARO DE: " + currentWeapon.name);
-            if (Time.time >= nextFireTime)
+            if (Time.time >= nextFireTime && currentWeaponScript.ammo > 0)
             {
                 switch (currentWeapon.name)
                 {
@@ -103,6 +108,7 @@ public class PlayerAttack : MonoBehaviour
                         }
                         break;
                 }
+                currentWeaponScript.ammo--;
                 nextFireTime = Time.time + fireRate;
             }
         }
@@ -183,6 +189,20 @@ public class PlayerAttack : MonoBehaviour
         //fue para ver el radio del melee al principio para ajustarlo guay
         Gizmos.DrawSphere(firePoint.position - new Vector3(0.65f, 0, 0), meleeRange);
     }
-}
 
-//TODO UTILIZAR EL BOOL DE HASMELEWEAPON PARA DIFERENCIAR ENTE CUCHILLO Y PUÑO PARA ANIMACIONES Y A LA HORA DE LLAMAR A ENEMY DAMAGED
+    private void controllAmmoText()
+    {
+        if (hasGun && !isMeleGun)
+        {
+            ammoText.gameObject.SetActive(true);
+            ammoText.SetText($"Bullets: {currentWeaponScript.ammo,2}");
+        }
+        else
+        {
+            ammoText.SetText("");
+            ammoText.gameObject.SetActive(false);
+        }
+
+    }
+
+}

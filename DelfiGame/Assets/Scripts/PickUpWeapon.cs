@@ -16,12 +16,6 @@ public class PickUpWeapon : MonoBehaviour
         playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     }
 
-    void Update()
-    {
-
-
-    }
-
     void OnTriggerStay2D(Collider2D collider)
     {
         //Debug.Log("" + collider.name);
@@ -35,6 +29,7 @@ public class PickUpWeapon : MonoBehaviour
             playerAttack.weaponChangeCooldwon=0.5f;
             playerAttack.hasGun = true;
             playerAttack.currentWeapon = this.gameObject;
+            playerAttack.currentWeaponScript = this;
             if (name=="KNIFE")
             {
                 playerAttack.isMeleGun = true;         
