@@ -79,7 +79,7 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
             //Debug.Log("DISPARO DE: " + currentWeapon.name);
-            if (Time.time >= nextFireTime && currentWeaponScript.ammo > 0)
+            if (Time.time >= nextFireTime && currentWeaponScript.currentAmmo > 0)
             {
                 switch (currentWeapon.name)
                 {
@@ -108,7 +108,7 @@ public class PlayerAttack : MonoBehaviour
                         }
                         break;
                 }
-                currentWeaponScript.ammo--;
+                currentWeaponScript.currentAmmo--;
                 nextFireTime = Time.time + fireRate;
             }
         }
@@ -195,7 +195,7 @@ public class PlayerAttack : MonoBehaviour
         if (hasGun && !isMeleGun)
         {
             ammoText.gameObject.SetActive(true);
-            ammoText.SetText($"Bullets: {currentWeaponScript.ammo,2}");
+            ammoText.SetText($"Bullets: {currentWeaponScript.currentAmmo,2}");
         }
         else
         {

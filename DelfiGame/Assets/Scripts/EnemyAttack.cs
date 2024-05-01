@@ -18,27 +18,40 @@ public class EnemyAttack : MonoBehaviour
     public Transform firePoint;
     public float bulletForce = 20f;
     public bool hasGun=true;
+    private PickUpWeapon currentPickUpWeaponScr;
     void Start()
     {
+        currentPickUpWeaponScr = currentWeapon.GetComponent<PickUpWeapon>();
         animator = gameObject.GetComponent<Animator>();
-        
+
+
+        if (currentWeapon.name == "SHOTGUN") //error que al reiniciar el nivel no vuelven a recargarse las balas
+        {
+            currentPickUpWeaponScr.currentAmmo = currentPickUpWeaponScr.initialAmmo;
+        }
+        else if (currentWeapon.name == "UZI")
+        {
+            currentPickUpWeaponScr.currentAmmo = currentPickUpWeaponScr.initialAmmo;
+        }
     }
 
     void Update()
     {
-
+        //animator.enabled = hasGun ? true : false;
+        animator.SetBool("hasGun", hasGun);
     }
 
     public void testShooting() {
-        if (Time.time >= nextFireTime && hasGun)
+        if (Time.time >= nextFireTime && hasGun && currentWeapon.GetComponent<PickUpWeapon>().currentAmmo >0)
         {
-            currentWeapon.GetComponent<PickUpWeapon>().ammo--;
+            animator.SetTrigger("shootUzi");
+            currentPickUpWeaponScr.currentAmmo--;
             FindObjectOfType<AudioManager>().Play("MachineGun");
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.transform.Rotate(Vector3.forward, 90);
             Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
             rbBullet.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
-            nextFireTime = Time.time + currentWeapon.GetComponent<PickUpWeapon>().fireRate;
+            nextFireTime = Time.time + currentPickUpWeaponScr.fireRate;
         }
 
     }

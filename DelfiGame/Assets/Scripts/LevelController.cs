@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
     private GameObject[] enemies;
 
+    public Sprite openVan;
+    private GameObject van;
+    public GameObject exitZone;
+    public TextMeshProUGUI vanText;
+
     void Start()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        van = GameObject.FindGameObjectWithTag("Van");
     }
 
 
@@ -16,7 +23,10 @@ public class LevelController : MonoBehaviour
     {
         if (allEnemiesDead())
         {
-            Debug.Log("FIN DEL JUEGO");
+            van.GetComponent<SpriteRenderer>().sprite = openVan;
+            exitZone.SetActive(true);
+            vanText.gameObject.SetActive(true);
+            Destroy(this);
         }
     }
 
@@ -30,4 +40,5 @@ public class LevelController : MonoBehaviour
         }
         return true;
     }
+ 
 }

@@ -29,6 +29,7 @@ public class EnemyIA : MonoBehaviour
         enemyAttack = this.GetComponent<EnemyAttack>();
         startingPosition = this.transform.position;
         roamingPosition = GetRoamingPosition();
+ 
     }
 
     void Update()

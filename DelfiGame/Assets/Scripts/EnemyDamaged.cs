@@ -9,7 +9,7 @@ public class EnemyDamaged : MonoBehaviour
     public Sprite spriteDeadMele;
     public Sprite spriteKnockedDown;
     public Sprite spriteStanding;
-
+    private Animator animator;
     private float knockedDownTime = 2f;
     public bool isKnockedDown = false;
     private SpriteRenderer spriteRenderer;
@@ -21,6 +21,8 @@ public class EnemyDamaged : MonoBehaviour
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         score = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<Score>();
         enemyAttackScr = this.GetComponent<EnemyAttack>();
+        animator=this.GetComponent<Animator>();
+
     }
 
     void Update()
@@ -28,6 +30,7 @@ public class EnemyDamaged : MonoBehaviour
         //aqui tengo que hacer booleana en el update para el metodo para que corra el tiempo del timer
         if (isKnockedDown)
         {
+            animator.enabled = false;
             resetVelocity();
             knockedDown();
         }
@@ -35,6 +38,7 @@ public class EnemyDamaged : MonoBehaviour
 
     public void killedByBullet()
     {
+        animator.enabled = false;
         enemyLosesWeapon();
         score.AddScore(1000, this.transform.position);
         score.increaseMultiplier();
@@ -58,7 +62,7 @@ public class EnemyDamaged : MonoBehaviour
             this.GetComponent<EnemyIA>().enabled = false;
 
             enemyLosesWeapon();
-
+            enemyAttackScr.hasGun=false;
 
             if (knockedDownTime <= 0)
             {
@@ -67,6 +71,7 @@ public class EnemyDamaged : MonoBehaviour
                 this.GetComponent<Collider2D>().isTrigger = false;
                 spriteRenderer.sprite = spriteStanding;
                 this.GetComponent<EnemyIA>().enabled = true;
+                animator.enabled = true;
 
             }
         }
@@ -75,6 +80,7 @@ public class EnemyDamaged : MonoBehaviour
 
     public void killedByMele()
     {
+        animator.enabled = false;
         enemyLosesWeapon();
         score.AddScore(500, this.transform.position);
         score.increaseMultiplier();
@@ -122,6 +128,7 @@ public class EnemyDamaged : MonoBehaviour
     {
         if (enemyAttackScr.hasGun)
         {
+
             switch (enemyAttackScr.currentWeapon.name) //nombre del arma que tiene encima
             {
                 case "KNIFE":
@@ -130,13 +137,13 @@ public class EnemyDamaged : MonoBehaviour
                     break;
                 case "UZI":
                     GameObject uzi = Instantiate(enemyAttackScr.uziPrefab, this.transform.position, this.transform.rotation);
-                    uzi.name = enemyAttackScr.uziPrefab.name; //NECESARIO YA QUE SI NO EL NOMBRE SERÁ (CLONE) Y DESPUES SE LIAN LOS OTROS SCRIPT AL COMPARAR CADENAS
-                    uzi.GetComponent<PickUpWeapon>().ammo=  enemyAttackScr.currentWeapon.GetComponent<PickUpWeapon>().ammo;
+                    uzi.name = enemyAttackScr.uziPrefab.name; 
+                    uzi.GetComponent<PickUpWeapon>().currentAmmo =  enemyAttackScr.currentWeapon.GetComponent<PickUpWeapon>().currentAmmo;
                     break;
                 case "SHOTGUN":
                     GameObject shotgun = Instantiate(enemyAttackScr.shotgunPrefab, this.transform.position, this.transform.rotation);
-                    shotgun.name = enemyAttackScr.shotgunPrefab.name; //NECESARIO YA QUE SI NO EL NOMBRE SERÁ (CLONE) Y DESPUES SE LIAN LOS OTROS SCRIPT AL COMPARAR CADENAS
-                    shotgun.GetComponent<PickUpWeapon>().ammo=  enemyAttackScr.currentWeapon.GetComponent<PickUpWeapon>().ammo;
+                    shotgun.name = enemyAttackScr.shotgunPrefab.name; 
+                    shotgun.GetComponent<PickUpWeapon>().currentAmmo =  enemyAttackScr.currentWeapon.GetComponent<PickUpWeapon>().currentAmmo;
 
                     break;
             }

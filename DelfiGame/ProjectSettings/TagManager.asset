@@ -11,6 +11,7 @@ TagManager:
   - ScoreController
   - UI
   - Dead
+  - Van
   layers:
   - Default
   - TransparentFX
