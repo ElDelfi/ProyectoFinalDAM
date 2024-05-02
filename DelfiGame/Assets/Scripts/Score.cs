@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class Score : MonoBehaviour
@@ -10,13 +11,22 @@ public class Score : MonoBehaviour
     public GameObject prefab1000;
     public int score = 0;
     public int multiplier = 1;
-    float comboTimer = 0.0f;
+    public float comboTimer = 0.0f;
     int scoreHold = 0; //son los puntos obtenidos antes de que se acabe el combo, luego se suman al acabar el timer
     public TextMeshProUGUI scoreTextGUI;
-   
+    public TextMeshProUGUI recordTextGUI;
+    public int record;
     void Start()
     {
+        record = PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "score", 0);
+        Debug.Log("RECORD:"+record);
         refreshScoreGUI();
+
+        if (record>=0)
+        {
+            recordTextGUI.gameObject.SetActive(true);
+            recordTextGUI.text=$"Record: {record}";
+        }
     }
 
     void Update()

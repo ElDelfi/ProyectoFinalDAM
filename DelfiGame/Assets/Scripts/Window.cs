@@ -24,7 +24,6 @@ public class Window : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("Glass");
             GetComponent<BoxCollider2D>().enabled = false;
             spriteRenderer.sprite = brokenWindow;
-            spriteRenderer.sortingOrder = 1; //para que no de problemas 
         }
     }
 }
