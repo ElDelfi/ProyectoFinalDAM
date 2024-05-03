@@ -2944,7 +2944,7 @@ MonoBehaviour:
   uziPrefab: {fileID: 1038865837082531638, guid: 88a64bfc20b9e4544ac2e8785ca355bb, type: 3}
   knifePrefab: {fileID: 3954002261004762431, guid: c73c3c4ce3601f0418eb7d9fcf8324ad, type: 3}
   shotgunPrefab: {fileID: 45540495242133973, guid: 5f9d2f778c6f07541ba91f77f05e95e7, type: 3}
-  currentWeapon: {fileID: 1038865837082531638, guid: 88a64bfc20b9e4544ac2e8785ca355bb, type: 3}
+  currentWeapon: {fileID: 45540495242133973, guid: 5f9d2f778c6f07541ba91f77f05e95e7, type: 3}
   cooldownTime: 0.3
   bulletPrefab: {fileID: 1761304570319270153, guid: 5b0498e8f51dd994284ccf4bcf595490, type: 3}
   firePoint: {fileID: 1244749863}

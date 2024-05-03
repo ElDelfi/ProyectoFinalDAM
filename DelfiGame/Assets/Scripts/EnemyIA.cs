@@ -29,7 +29,7 @@ public class EnemyIA : MonoBehaviour
         enemyAttack = this.GetComponent<EnemyAttack>();
         startingPosition = this.transform.position;
         roamingPosition = GetRoamingPosition();
- 
+
     }
 
     void Update()
@@ -95,7 +95,20 @@ public class EnemyIA : MonoBehaviour
         {
             if (enemyAttack.hasGun)
             {
-                enemyAttack.testShooting();
+                switch (enemyAttack.currentWeapon.name)
+                {
+
+                    case "KNIFE":
+                        //TODO HACER EL MELE DEL ENEMIGO
+                        break;
+                    case "UZI":
+                        enemyAttack.testShooting();
+                        break;
+                    case "SHOTGUN":
+                        enemyAttack.testShootingShotgun();
+                        break;
+
+                }
 
             }
         }

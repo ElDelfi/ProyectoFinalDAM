@@ -52,6 +52,8 @@ public class EnemyDamaged : MonoBehaviour
     {
         if (this.gameObject.tag == "Enemy") //para que no lo haga si ya esta muerte por un bug
         {
+            enemyAttackScr.changeWeaponAnimatorState(false); //para que ponga a false para el animator que ya no tenemos el arma
+
             FindObjectOfType<AudioManager>().Play("Damaged");
 
             //score.AddScore(500, this.transform.position);
