@@ -2506,7 +2506,7 @@ GameObject:
   - component: {fileID: 274949942}
   - component: {fileID: 274949943}
   - component: {fileID: 274949944}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2716,6 +2716,7 @@ MonoBehaviour:
   weaponChangeCooldwon: 0.5
   changingWeapon: 0
   currentWeaponScript: {fileID: 0}
+  isPlayerShooting: 0
 --- !u!114 &274949944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3432,11 +3433,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2075732737416681608, guid: f403fc7624e80fb4799ea4a2f5733e9a, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.02
+      value: -0.051128864
       objectReference: {fileID: 0}
     - target: {fileID: 2075732737416681608, guid: f403fc7624e80fb4799ea4a2f5733e9a, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -3.9
+      value: -3.8905356
       objectReference: {fileID: 0}
     - target: {fileID: 5423345088629892941, guid: f403fc7624e80fb4799ea4a2f5733e9a, type: 3}
       propertyPath: m_Name
@@ -3801,7 +3802,7 @@ GameObject:
   - component: {fileID: 2097570030}
   - component: {fileID: 2097570029}
   - component: {fileID: 2097570028}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

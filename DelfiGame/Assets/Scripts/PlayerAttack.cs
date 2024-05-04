@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform firePoint;
     public float bulletForce = 20f;
 
-    private float meleeRange = 0.25f;
+    private float meleeRange = 0.4f;
     private float meleeCooldown = 1f;
     private float nextMeleTime = 0f;
 
@@ -29,6 +29,7 @@ public class PlayerAttack : MonoBehaviour
 
     private EnemyDamaged enemyDamagedScript;
 
+    public bool isPlayerShooting;
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -108,9 +109,11 @@ public class PlayerAttack : MonoBehaviour
                         }
                         break;
                 }
+                isPlayerShooting = true;
                 currentWeaponScript.currentAmmo--;
                 nextFireTime = Time.time + fireRate;
             }
+
         }
         else
         {
