@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
     public Slider sliderSFX;
     public void PlayGame()
     {
-        SceneManager.LoadScene(1); //podemos ver el orden y añadirles en FILE->BUILD SETTINGS
+        SceneManager.LoadScene("LevelSelector"); //podemos ver el orden y añadirles en FILE->BUILD SETTINGS
     }
 
     public void QuitGame()
