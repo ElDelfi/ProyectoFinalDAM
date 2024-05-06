@@ -60,6 +60,8 @@ public class EnemyIA : MonoBehaviour
                         roamingPosition = GetRoamingPosition();
                         playerLastPosition = Vector3.zero;
                     }
+                    FindPlayer();
+
                 }
                 else
                 {
@@ -186,7 +188,7 @@ public class EnemyIA : MonoBehaviour
 
     private Vector3 GetRoamingPosition()
     {
-        return startingPosition + GetRandomDir() * Random.Range(5f, 10f);
+        return startingPosition + GetRandomDir() * Random.Range(2f, 5f);
     }
 
     public Vector3 GetRandomDir()
@@ -196,9 +198,9 @@ public class EnemyIA : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Wall"||collision.gameObject.name == "Window")
+        if (collision.gameObject.name == "Wall" || collision.gameObject.name == "Window")
         {
-            wallHit=true;
+            wallHit = true;
         }
     }
 }
