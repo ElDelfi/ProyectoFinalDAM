@@ -11,11 +11,10 @@ public class EnemyIA : MonoBehaviour
     private Vector3 startingPosition; //para el comportamiento de Roam 
     private Vector3 roamingPosition;
     private LayerMask layerMask = 1 << 7; //la capa del raycast, muros,puertas,jugador
-    private bool wallHit=false;
 
     private EnemyAttack enemyAttack;
 
-    private Vector3 playerLastPosition= Vector3.zero;
+    private Vector3 playerLastPosition = Vector3.zero;
 
     private PlayerAttack playerAttackScr;
 
@@ -37,67 +36,69 @@ public class EnemyIA : MonoBehaviour
         roamingPosition = GetRoamingPosition();
         playerAttackScr = player.GetComponent<PlayerAttack>();
     }
+    IEnumerator ResetPlayerShootingFlag()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playerAttackScr.isPlayerShooting = false;
+    }
 
     void Update()
     {
         if (playerAttackScr.isPlayerShooting) //si el player dispara pasaremos la posición, ya que es como si lo detectaran los enemigos
         {
             playerLastPosition = player.transform.position;
-            playerAttackScr.isPlayerShooting = false; //cambiado aqui si nod aba errores
+            //playerAttackScr.isPlayerShooting = false; //cambiado aqui si nod aba errores
+            StartCoroutine(ResetPlayerShootingFlag());
         }
 
         switch (state)
         {
             case State.Roaming:
 
-               
-
-                if (playerLastPosition!=Vector3.zero) //al volver a roaming desde chase, el valor de lastposition tendrá algo y así seguirá la última posición del jugador, y luego volverá a roaming 
+                if (playerLastPosition != Vector3.zero) //al volver a roaming desde chase, el valor de lastposition tendrá algo y así seguirá la última posición del jugador, y luego volverá a roaming 
                 {
                     MoveTo(playerLastPosition);
-                    if (Vector3.Distance(transform.position, playerLastPosition) < 0.5f ) 
+                    if (Vector3.Distance(transform.position, playerLastPosition) < 0.5f)
                     {
                         roamingPosition = GetRoamingPosition();
                         playerLastPosition = Vector3.zero;
                     }
-                    FindPlayer();
 
                 }
                 else
                 {
                     MoveTo(roamingPosition);
 
-                    if (Vector3.Distance(transform.position, roamingPosition) < 0.5f || wallHit) //0.5 para dejar margen
+                    if (Vector3.Distance(transform.position, roamingPosition) < 0.5f) //0.5 para dejar margen
                     {
-                        wallHit = false;
                         roamingPosition = GetRoamingPosition();
                     }
-                    FindPlayer();
                 }
 
-            
+                FindPlayer();
+
+
                 break;
             case State.ChaseTarget:
                 ChasePlayer();
                 break;
-            case State.GoingBackToStart:
+                //case State.GoingBackToStart:
                 //MoveTo(startingPosition);
                 //if (Vector3.Distance(transform.position, startingPosition) < 0.5f)
                 //{
 
                 //    state = State.Roaming;
                 //}
-                break;
+                //break;
         }
 
 
     }
 
+
     private void FindPlayer()
     {
         float playerRange = 5f;
-
-        //TODO HACER CONDICION QUE SI EL JUGADOR DISPARA LOS ENEMIGOS SE ALERTEN!!!
 
         if (Vector3.Distance(transform.position, player.transform.position) < playerRange)
         {
@@ -130,7 +131,7 @@ public class EnemyIA : MonoBehaviour
 
         if (hit.collider != null && hit.collider.tag == "Player")
         {
-            playerLastPosition=player.transform.position;
+            playerLastPosition = player.transform.position;
 
             float attackRange = 3f;
             if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
@@ -140,7 +141,7 @@ public class EnemyIA : MonoBehaviour
                     switch (enemyAttack.currentWeapon.name)
                     {
                         case "KNIFE":
-                            //TODO HACER EL MELE DEL ENEMIGO
+                            enemyAttack.testKnifeAttack();
                             break;
                         case "UZI":
                             enemyAttack.testShooting();
@@ -149,15 +150,12 @@ public class EnemyIA : MonoBehaviour
                             enemyAttack.testShootingShotgun();
                             break;
                     }
-
                 }
             }
-
         }
         else
         {
             state = State.Roaming;
-
         }
 
         //float stopChaseRange = 15f;
@@ -188,7 +186,7 @@ public class EnemyIA : MonoBehaviour
 
     private Vector3 GetRoamingPosition()
     {
-        return startingPosition + GetRandomDir() * Random.Range(2f, 5f);
+        return startingPosition + GetRandomDir() * Random.Range(2f, 4f);
     }
 
     public Vector3 GetRandomDir()
@@ -200,9 +198,13 @@ public class EnemyIA : MonoBehaviour
     {
         if (collision.gameObject.name == "Wall" || collision.gameObject.name == "Window")
         {
-            wallHit = true;
+            roamingPosition = GetRoamingPosition();
         }
     }
-}
 
-//HACER FUNCION PARA MOVER Y ROTAR
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+            roamingPosition = GetRoamingPosition();
+
+    }
+}

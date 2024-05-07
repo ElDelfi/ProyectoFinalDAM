@@ -91,6 +91,19 @@ public class EnemyAttack : MonoBehaviour
 
     }
 
+    public void testKnifeAttack() {
+        animator.SetTrigger("knifeAttack");
+        FindObjectOfType<AudioManager>().Play("Knife");
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(firePoint.position - new Vector3(0.3f, 0, 0), 0.2f);
+        foreach (Collider2D player in hitPlayer)
+        {
+            if (player.tag == "Player")
+            {             
+               player.GetComponent<PlayerDeathController>().isDead = true;
+            }
+        }
+    }
+
     public void changeWeaponAnimatorState(bool state) {
         switch (currentWeapon.name)
         {
