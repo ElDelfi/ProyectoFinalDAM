@@ -23,11 +23,12 @@ public class EnemyIA : MonoBehaviour
         Roaming,
         ChaseTarget,
         GoingBackToStart,
+        Waiting
     }
     private State state;
     private void Awake()
     {
-        state = State.Roaming;
+        state = State.Waiting;
     }
     void Start()
     {
@@ -35,6 +36,8 @@ public class EnemyIA : MonoBehaviour
         startingPosition = this.transform.position;
         roamingPosition = GetRoamingPosition();
         playerAttackScr = player.GetComponent<PlayerAttack>();
+
+        transform.Translate(transform.up * 1.01f * Time.deltaTime, Space.World); //esta linea es para activar las animaciones de los enemigos y poder ver las armas,ya que para cambiar el estado inicial de la animación debe de haber movimiento, un poco jaimitada pero funciona
     }
     IEnumerator ResetPlayerShootingFlag()
     {
@@ -82,14 +85,21 @@ public class EnemyIA : MonoBehaviour
             case State.ChaseTarget:
                 ChasePlayer();
                 break;
-                //case State.GoingBackToStart:
-                //MoveTo(startingPosition);
-                //if (Vector3.Distance(transform.position, startingPosition) < 0.5f)
-                //{
+            //case State.GoingBackToStart:
+            //MoveTo(startingPosition);
+            //if (Vector3.Distance(transform.position, startingPosition) < 0.5f)
+            //{
 
-                //    state = State.Roaming;
-                //}
-                //break;
+            //    state = State.Roaming;
+            //}
+            //break;
+            case State.Waiting:
+                FindPlayer();
+                if (playerLastPosition != Vector3.zero)
+                {
+                    state= State.Roaming;
+                }
+                break;
         }
 
 
@@ -204,7 +214,7 @@ public class EnemyIA : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-            roamingPosition = GetRoamingPosition();
+        roamingPosition = GetRoamingPosition();
 
     }
 }

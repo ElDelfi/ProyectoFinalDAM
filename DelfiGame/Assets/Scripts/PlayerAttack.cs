@@ -88,6 +88,7 @@ public class PlayerAttack : MonoBehaviour
                         animator.SetTrigger("uziShoots");
                         FindObjectOfType<AudioManager>().Play("MachineGun");
                         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                        bullet.GetComponent<Bullet>().isShotByPlayer = true;
                         bullet.transform.Rotate(Vector3.forward, 90); //NECESARIO YA QUE EL PREFAB APARECE SIEMPRE EN HORIZONTAL EN VEZ DE VERTICAL 
                         Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
                         rbBullet.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
@@ -103,6 +104,7 @@ public class PlayerAttack : MonoBehaviour
                             Quaternion rotation = Quaternion.Euler(0f, 0f, firePoint.rotation.eulerAngles.z + spreadAngle);
 
                             GameObject shotgunBullet = Instantiate(bulletPrefab, firePoint.position, rotation);
+                            shotgunBullet.GetComponent<Bullet>().isShotByPlayer = true;
                             Rigidbody2D rbShotgunBullet = shotgunBullet.GetComponent<Rigidbody2D>();
                             rbShotgunBullet.AddForce(rotation * Vector2.up * bulletForce, ForceMode2D.Impulse);
 
