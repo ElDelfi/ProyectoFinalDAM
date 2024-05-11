@@ -11,8 +11,9 @@ public class EnemyIA : MonoBehaviour
     private Vector3 startingPosition; //para el comportamiento de Roam 
     private Vector3 roamingPosition;
     private LayerMask layerMask = 1 << 7; //la capa del raycast, muros,puertas,jugador
-
+    private float attackRange;
     private EnemyAttack enemyAttack;
+    private float hearShotRange=15f;
 
     private Vector3 playerLastPosition = Vector3.zero;
 
@@ -38,6 +39,16 @@ public class EnemyIA : MonoBehaviour
         playerAttackScr = player.GetComponent<PlayerAttack>();
 
         transform.Translate(transform.up * 1.01f * Time.deltaTime, Space.World); //esta linea es para activar las animaciones de los enemigos y poder ver las armas,ya que para cambiar el estado inicial de la animación debe de haber movimiento, un poco jaimitada pero funciona
+
+        switch (enemyAttack.currentWeapon.name)
+        {       
+            case "UZI":
+                attackRange = 6f;
+                break;
+            case "SHOTGUN":
+                attackRange = 3f;
+                break;
+        }
     }
     IEnumerator ResetPlayerShootingFlag()
     {
@@ -47,7 +58,7 @@ public class EnemyIA : MonoBehaviour
 
     void Update()
     {
-        if (playerAttackScr.isPlayerShooting) //si el player dispara pasaremos la posición, ya que es como si lo detectaran los enemigos
+        if (playerAttackScr.isPlayerShooting&& Vector3.Distance(transform.position, player.transform.position) < hearShotRange) //si el player dispara pasaremos la posición, ya que es como si lo detectaran los enemigos
         {
             playerLastPosition = player.transform.position;
             //playerAttackScr.isPlayerShooting = false; //cambiado aqui si nod aba errores
@@ -108,7 +119,7 @@ public class EnemyIA : MonoBehaviour
 
     private void FindPlayer()
     {
-        float playerRange = 5f;
+        float playerRange = 10f;
 
         if (Vector3.Distance(transform.position, player.transform.position) < playerRange)
         {
@@ -143,7 +154,7 @@ public class EnemyIA : MonoBehaviour
         {
             playerLastPosition = player.transform.position;
 
-            float attackRange = 3f;
+
             if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
             {
                 if (enemyAttack.hasGun)
