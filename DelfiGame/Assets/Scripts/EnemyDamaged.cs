@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyDamaged : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class EnemyDamaged : MonoBehaviour
             spriteRenderer.sprite = spriteKnockedDown;
             this.GetComponent<Collider2D>().isTrigger = true;
             this.GetComponent<EnemyIA>().enabled = false;
+            this.GetComponent<NavMeshAgent>().enabled = false;
 
             enemyLosesWeapon();
             enemyAttackScr.hasGun=false;
@@ -73,6 +75,8 @@ public class EnemyDamaged : MonoBehaviour
                 this.GetComponent<Collider2D>().isTrigger = false;
                 spriteRenderer.sprite = spriteStanding;
                 this.GetComponent<EnemyIA>().enabled = true;
+                this.GetComponent<NavMeshAgent>().enabled = true;
+
                 animator.enabled = true;
 
             }
@@ -95,6 +99,8 @@ public class EnemyDamaged : MonoBehaviour
 
     private void startDeath()
     {
+        this.GetComponent<NavMeshAgent>().enabled = false;
+
         FindObjectOfType<AudioManager>().Play("Die");
 
         this.GetComponent<EnemyIA>().enabled = false;

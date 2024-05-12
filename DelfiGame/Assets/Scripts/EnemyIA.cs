@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyIA : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class EnemyIA : MonoBehaviour
 
     private PlayerAttack playerAttackScr;
 
+    public NavMeshAgent navMeshAgent;
     private enum State
     {
         Roaming,
@@ -37,6 +39,9 @@ public class EnemyIA : MonoBehaviour
         startingPosition = this.transform.position;
         roamingPosition = GetRoamingPosition();
         playerAttackScr = player.GetComponent<PlayerAttack>();
+        navMeshAgent = this.GetComponent<NavMeshAgent>();
+        navMeshAgent.updateUpAxis = false;
+        navMeshAgent.updateRotation = false;
 
         transform.Translate(transform.up * 1.01f * Time.deltaTime, Space.World); //esta linea es para activar las animaciones de los enemigos y poder ver las armas,ya que para cambiar el estado inicial de la animación debe de haber movimiento, un poco jaimitada pero funciona
 
@@ -71,7 +76,9 @@ public class EnemyIA : MonoBehaviour
 
                 if (playerLastPosition != Vector3.zero) //al volver a roaming desde chase, el valor de lastposition tendrá algo y así seguirá la última posición del jugador, y luego volverá a roaming 
                 {
-                    MoveTo(playerLastPosition);
+                    RotateToPoint(playerLastPosition);
+                    navMeshAgent.SetDestination(playerLastPosition);
+                    //MoveTo(playerLastPosition);
                     if (Vector3.Distance(transform.position, playerLastPosition) < 0.5f)
                     {
                         roamingPosition = GetRoamingPosition();
@@ -202,6 +209,16 @@ public class EnemyIA : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, targetRotation.eulerAngles.z);
 
         transform.Translate(directionToTarget * moveSpeed * Time.deltaTime, Space.World);
+
+    }    
+    public void RotateToPoint(Vector3 targetPosition) //creado para las pruebas con el navmesh
+    {
+
+        Vector3 directionToTarget = (targetPosition - transform.position).normalized;
+
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, directionToTarget);
+        targetRotation *= Quaternion.Euler(0, 0, 90);
+        transform.rotation = Quaternion.Euler(0f, 0f, targetRotation.eulerAngles.z);
 
     }
 

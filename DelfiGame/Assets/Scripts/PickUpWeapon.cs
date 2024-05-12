@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PickUpWeapon : MonoBehaviour
 {
-    public string name;
+    public new string name;
     public float fireRate;
     PlayerAttack playerAttack;
     public bool gun;
